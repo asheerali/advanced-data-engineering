@@ -50,3 +50,13 @@ jobs:
         with:
           name: exercise-feedback
           path: ./grading/feedback-ex?.txt
+
+                # Create badges
+      - name: Create badges ex1
+        uses: RubbaBoy/BYOB@v1.3.0
+        with:
+          NAME: score_ex1
+          LABEL: "Ex1"
+          STATUS: ${{ steps.ex_feedback.outputs.score_ex1 }}
+          COLOR: 84714F
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
