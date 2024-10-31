@@ -5,7 +5,7 @@
 // Write data into a SQLite database called “airports.sqlite”, in the table “airports”
 // Do not save the following columns: Zeitzone, DST, Zeitzonen-Datenbank, geo_punkt
 // Assign fitting built-in SQLite types (e.g., BIGINT, TEXT or FLOAT) to all other columns
-// Do not rename column names
+// Do not rename column names or change columns
 // No further data validation is required, do not drop any rows or change any data points
 
 
