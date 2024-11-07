@@ -1,37 +1,34 @@
-# Methods of Advanced Data Engineering Template Project
+<div align="center">
+  <h1>Traffic Crash Patterns: Assessing the Influence of Human Factors</h1>
+  <img src="https://img.freepik.com/free-photo/demographic-census-concept-representation_23-2149093905.jpg?t=st=1730981308~exp=1730984908~hmac=1ef7fdc6cad2d45870562ebfb98e47b37ae3f5ab1352f1f20230b2b76e34ab7c&w=900" width="800" height="400" alt="Project Logo">
+</div>
 
-This template project provides some structure for your open data project in the MADE module at FAU.
-This repository contains (a) a data science project that is developed by the student over the course of the semester, and (b) the exercises that are submitted over the course of the semester.
+<div align="center">
 
-To get started, please follow these steps:
-1. Create your own fork of this repository. Feel free to rename the repository right after creation, before you let the teaching instructors know your repository URL. **Do not rename the repository during the semester**.
+[![Jayvee](https://img.shields.io/badge/jayvee-0.6.3-blue.svg)](https://pypi.org/project/jayvee/0.6.3/)
 
-## Project Work
-Your data engineering project will run alongside lectures during the semester. We will ask you to regularly submit project work as milestones, so you can reasonably pace your work. All project work submissions **must** be placed in the `project` folder.
+[![Exercise Feedback](https://github.com/asheerali/advance_data_engineering/actions/workflows/exercise-feedback.yml/badge.svg)](https://github.com/asheerali/advance_data_engineering/actions/workflows/exercise-feedback.yml)
+![Ex1](https://img.shields.io/badge/Ex1-100%25-brightgreen)![Ex2](https://img.shields.io/badge/Ex2-100%25-brightgreen)
 
-### Exporting a Jupyter Notebook
-Jupyter Notebooks can be exported using `nbconvert` (`pip install nbconvert`). For example, to export the example notebook to HTML: `jupyter nbconvert --to html examples/final-report-example.ipynb --embed-images --output final-report.html`
+</div>
 
+# Table of Contents
 
-## Exercises
-During the semester you will need to complete exercises using [Jayvee](https://github.com/jvalue/jayvee). You **must** place your submission in the `exercises` folder in your repository and name them according to their number from one to five: `exercise<number from 1-5>.jv`.
+1. [Project Overview](#project-overview)
+2. [Data Sources](#data-sources)
 
-In regular intervals, exercises will be given as homework to complete during the semester. Details and deadlines will be discussed in the lecture, also see the [course schedule](https://made.uni1.de/).
+## Project Overview
 
-### Exercise Feedback
-We provide automated exercise feedback using a GitHub action (that is defined in `.github/workflows/exercise-feedback.yml`). 
+This project analyzes Chicago traffic crash data to explore how driver characteristics and vehicle conditions influence crash severity. The goal is to identify patterns that can inform safety policies and interventions to reduce high-severity crashes:
 
-To view your exercise feedback, navigate to Actions → Exercise Feedback in your repository.
+1. How do driver characteristics (e.g., age, sex, use of safety equipment) correlate with injury severity in crashes?
 
-The exercise feedback is executed whenever you make a change in files in the `exercise` folder and push your local changes to the repository on GitHub. To see the feedback, open the latest GitHub Action run, open the `exercise-feedback` job and `Exercise Feedback` step. You should see command line output that contains output like this:
+2. What are the most common vehicle types and conditions associated with high-severity crashes?
 
-```sh
-Found exercises/exercise1.jv, executing model...
-Found output file airports.sqlite, grading...
-Grading Exercise 1
-	Overall points 17 of 17
-	---
-	By category:
-		Shape: 4 of 4
-		Types: 13 of 13
-```
+## Data Sources
+
+The project utilizes the following datasets:
+
+- **Traffic Crashes - People**: Contains details of individuals involved in a traffic crash, including injuries and fatalities, categorized by various factors such as age, injury type, and safety equipment usage.
+
+- **Traffic Crashes - Vehicles**: Includes information on vehicles involved in crashes, covering vehicle make, model, defect, and travel direction. It helps in linking vehicle data with person and crash information.
