@@ -8,8 +8,7 @@
 [![Jayvee](https://img.shields.io/badge/jayvee-0.6.3-blue.svg)](https://pypi.org/project/jayvee/0.6.3/)
 
 [![Exercise Feedback](https://github.com/asheerali/advance_data_engineering/actions/workflows/exercise-feedback.yml/badge.svg)](https://github.com/asheerali/advance_data_engineering/actions/workflows/exercise-feedback.yml)
-![Ex1](https://img.shields.io/badge/Ex1-100%25-brightgreen)![Ex2](https://img.shields.io/badge/Ex2-100%25-brightgreen)
-
+![](https://byob.yarr.is/asheerali/advance_data_engineering/score_ex1) ![](https://byob.yarr.is/asheerali/advance_data_engineering/score_ex2) ![](https://byob.yarr.is/asheerali/advance_data_engineering/score_ex3) ![](https://byob.yarr.is/asheerali/advance_data_engineering/score_ex4) ![](https://byob.yarr.is/asheerali/advance_data_engineering/score_ex5)
 </div>
 
 # Table of Contents
