@@ -1,0 +1,118 @@
+// Update Jayvee to version 0.6.4
+
+// Update instructions
+
+// Build an automated data pipeline for the following source:
+// Meta data: https://datacatalog.worldbank.org/search/dataset/0061114/World-Development-Report-2022---Chapter-5-Figures
+// direct link to data: https://thedocs.worldbank.org/en/doc/7d852628d96b9411d43e5d36d5dff941-0050062022/original/Graphs-Chapter-5-02082022.xlsx
+// Do NOT use a local file, always take the data from the link above
+
+// Goal
+
+// Extract the data we are interested in
+// Extract the sheet called “Figure S5.1.2” from the Excel file
+// Ignore the figure itself and only keep the table with actual data (from cell P2 to S45)
+// Rename header columns: “ISO3” to "Country Code", “GDP per capita (US$, thousands)” to "GDP per Capita", “Share of government sustainable bonds" to "Bond Issuance Share"
+// “Economy” does not have to be renamed
+// Validate data, drop all invalid rows
+// "Country Code" must be a valid ISO 3166-1 alpha-3 country code (must not be empty)
+// "GDP per Capita" must be a positive decimal (must not be empty)
+// "Bond Issuance Share" must be a decimal between 0 and 1 (both values included, must not be empty)
+// Assign fitting built-in SQLite types (e.g., BIGINT, TEXT or FLOAT) to all columns
+// Write data into a SQLite database called “country-stats.sqlite”
+// One table “bondIssuance”, containing the data about bond issuance share (columns "Country Code" and "Bond Issuance Share")
+// One table “gdpPerCapita”, containing the data about GDP per capita (columns "Country Code" and "GDP per Capita")
+// Use Jayvee version 0.6.4 (new release!)
+// Jayvee 0.6.4 has a CountryCodeAlpha3 value type in its standard library that you might find useful
+// Submit as  /exercises/exercise3.jv
+
+
+pipeline WorldDevelopmentReportPipeline{
+
+    WorldDevelopmentReportHttpExtractor
+        ->WorldDevelopmentReportXLSXInterpreter
+        ->WorldDevelopmentReportSheetPicker
+        ->WorldDevelopmentReportCoreDataSelector
+        ->WorldDevelopmentReportNameHeaderWriter;
+
+    WorldDevelopmentReportNameHeaderWriter
+        ->BondIssuanceTableInterpreter
+        ->BondIssuanceCellsLoader;
+
+    WorldDevelopmentReportNameHeaderWriter
+        ->GdpPerCapitaTableInterpreter
+        ->GdpPerCapitaCellsLoader;
+
+
+    block WorldDevelopmentReportHttpExtractor oftype HttpExtractor {
+        url: "https://thedocs.worldbank.org/en/doc/7d852628d96b9411d43e5d36d5dff941-0050062022/original/Graphs-Chapter-5-02082022.xlsx";
+    }
+
+    block WorldDevelopmentReportXLSXInterpreter oftype XLSXInterpreter { }
+
+    block WorldDevelopmentReportSheetPicker oftype SheetPicker {
+       sheetName: "Figure S5.1.2";
+    }
+    
+    block WorldDevelopmentReportCoreDataSelector oftype CellRangeSelector {
+        select: range P2:S45;
+    }
+
+    block WorldDevelopmentReportNameHeaderWriter oftype CellWriter {
+        at: range A1:D1;
+        write: [
+        "Country Code",
+        "Economy",
+        "GDP per Capita",
+        "Bond Issuance Share"
+        ];
+    }
+
+    constraint GDPperCapitaRegex oftype RangeConstraint {
+        lowerBound: 0;
+    }
+
+    valuetype gdppercapita oftype decimal {
+        constraints: [
+            GDPperCapitaRegex,
+        ];
+    }
+
+    constraint BondIssuanceShareRegex oftype RangeConstraint {
+        lowerBound: 0;
+        upperBound: 1;
+    }
+
+    valuetype bondissuanceshare oftype decimal {
+        constraints: [
+            BondIssuanceShareRegex,
+        ];
+    }
+
+    block BondIssuanceTableInterpreter oftype TableInterpreter {
+        header: true;
+        columns: [
+        "Country Code" oftype CountryCodeAlpha3,
+        "Bond Issuance Share" oftype bondissuanceshare,
+        ];
+    }
+
+    block GdpPerCapitaTableInterpreter oftype TableInterpreter {
+        header: true;
+        columns: [
+        "Country Code" oftype CountryCodeAlpha3,
+        "GDP per Capita" oftype gdppercapita,
+        ];
+    }
+
+    block BondIssuanceCellsLoader oftype SQLiteLoader {
+        table: "bondIssuance";
+        file: "./country-stats.sqlite";
+    }
+
+    block GdpPerCapitaCellsLoader oftype SQLiteLoader {
+        table: "gdpPerCapita";
+        file: "./country-stats.sqlite";
+    }
+
+}

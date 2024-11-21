@@ -6,20 +6,10 @@
       "CRASH_RECORD_ID",
       "SEX",
       "AGE",
+      "DRIVER_VISION",
       "SAFETY_EQUIPMENT",
       "INJURY_CLASSIFICATION",
       "BAC_RESULT"
-    ],
-    "columnsToDelete": [
-      "SEAT_NO",
-      "CITY",
-      "STATE",
-      "ZIPCODE",
-      "EMS_AGENCY",
-      "EMS_RUN_NO",
-      "PEDPEDAL_ACTION",
-      "PEDPEDAL_VISIBILITY",
-      "PEDPEDAL_LOCATION"
     ]
   },
   "TrafficCrashesVehicles": {
@@ -27,38 +17,13 @@
     "columnsToKeep": [
       "CRASH_RECORD_ID",
       "VEHICLE_ID",
+      "VEHICLE_DEFECT",
       "MAKE",
       "MODEL",
       "VEHICLE_YEAR",
       "UNIT_TYPE",
       "OCCUPANT_CNT",
       "TRAVEL_DIRECTION"
-    ],
-    "columnsToDelete": [
-      "CMRC_VEH_I",
-      "HAZMAT_PLACARDS_I",
-      "HAZMAT_NAME",
-      "HAZMAT_PRESENT_I",
-      "HAZMAT_VIO_CAUSE_CRASH_I",
-      "FIRE_I",
-      "TOWED_I",
-      "TOWED_BY",
-      "TOWED_TO",
-      "AREA_00_I",
-      "AREA_01_I",
-      "AREA_02_I",
-      "AREA_03_I",
-      "AREA_04_I",
-      "AREA_05_I",
-      "AREA_06_I",
-      "AREA_07_I",
-      "AREA_08_I",
-      "AREA_09_I",
-      "AREA_10_I",
-      "AREA_11_I",
-      "AREA_12_I",
-      "AREA_99_I"
-    ],
-    "filteringQuery": "LocationAbbr == \"US\" "
+    ]
   }
 }
