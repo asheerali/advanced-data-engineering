@@ -51,3 +51,15 @@ def FilterRows(df: pd.DataFrame, condition: str) -> pd.DataFrame:
     '''
     filtered_df = df.query(condition)
     return filtered_df
+
+# Function to select the columns to keep from the DataFrame
+def selectColumns(df, columns_to_keep):
+    """
+    Function to select specific columns from a DataFrame.
+    
+    :param df: Input DataFrame
+    :param columns_to_keep: List of columns to keep
+    :return: Transformed DataFrame with only the selected columns
+    """
+    return df[columns_to_keep]
+

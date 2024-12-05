@@ -2,9 +2,7 @@ from data_processing.extract import CsvExtractor
 from helper import ReadJson
 from pathlib import Path
 from data_processing.transform import (
-    DeleteColumns,
-    FillEmptyValues,
-    FilterRows
+    selectColumns
     )
 from data_processing.load import LoadDfToSqlite
 import os
@@ -32,9 +30,8 @@ def main():
 
         #Transformation
         #step-2: remove unwanted columns
-        transformedDf = df[config["columnsToKeep"]]
-        # print("url", url, "config columns to delete", config['columnsToDelete'], "transformedDf", transformedDf.head())
-
+        # transformedDf = df[config["columnsToKeep"]]
+        transformedDf = selectColumns(df, config["columnsToKeep"])
 
         #step-3: fill empty cells
         transformedDf =  transformedDf.dropna()
