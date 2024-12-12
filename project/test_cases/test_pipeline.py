@@ -96,7 +96,7 @@ def test_pipeline_data(execute_pipeline):
     cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
     tables = cursor.fetchall()
     assert len(tables) > 0, "No tables found in the database"
-    cursor.execute("SELECT * FROM TrafficCrashPatterns LIMIT 5;")
+    cursor.execute("SELECT * FROM TrafficCrashesVehicles LIMIT 5;")
     rows = cursor.fetchall()
-    assert len(rows) > 0, "No data found in the TrafficCrashPatterns table"
+    assert len(rows) > 0, "No data found in the TrafficCrashesVehicles table"
     conn.close()
