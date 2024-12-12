@@ -1,28 +1,24 @@
+
+
 import subprocess
 import pytest
-import sys
 import os
-import sqlite3
-import pandas as pd
-from pathlib import Path
-
-# Add the project root directory to the sys.path so that Python can find data_processing
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
-
+import sys
+sys.path.append(os.path.abspath('./project'))
 from data_processing.transform import (
-    selectColumns,
     DeleteColumns,
-    FilterRows,
-    FillEmptyValues
-)
+    FillEmptyValues,
+    FilterRows
+    )
+from data_processing.load import LoadDfToSqlite
+import pandas as pd
 
-# Update paths based on your project structure
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../'))
 
-# Correct OUTPUT_FILE_PATH, PIPELINE_SCRIPT_PATH, and DATASOURCES_JSON_PATH
-OUTPUT_FILE_PATH = os.path.abspath(os.path.join(PROJECT_ROOT, '..', 'data', 'TrafficCrashPatterns.db'))  # Resolve the absolute path
-PIPELINE_SCRIPT_PATH = os.path.join(PROJECT_ROOT, 'pipeline.py')
+PIPELINE_SCRIPT_PATH = os.path.abspath("./project/pipeline.py")
+OUTPUT_FILE_PATH = os.path.abspath("./data/ChronicHealthTrends.db")
 DATASOURCES_JSON_PATH = os.path.join(PROJECT_ROOT, 'datasources.json')
+
 
 print("PIPELINE_SCRIPT_PATH", PIPELINE_SCRIPT_PATH)
 print("OUTPUT_FILE_PATH", OUTPUT_FILE_PATH)
