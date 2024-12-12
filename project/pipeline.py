@@ -6,6 +6,16 @@ from data_processing.transform import (
     )
 from data_processing.load import LoadDfToSqlite
 import os
+import json
+def validate_datasources_json(path):
+    try:
+        with open(path, 'r') as f:
+            json.load(f)
+        print("datasources.json validated successfully.")
+    except Exception as e:
+        print(f"Error in datasources.json: {e}")
+        raise
+
 
 def main():
 
