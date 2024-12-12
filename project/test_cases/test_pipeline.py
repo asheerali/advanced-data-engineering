@@ -1,3 +1,4 @@
+import sqlite3  # Add this import
 
 
 import subprocess
