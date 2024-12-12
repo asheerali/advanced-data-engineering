@@ -1,23 +1,28 @@
 import subprocess
 import pytest
-import os
 import sys
-sys.path.append(os.path.abspath('./project'))
+import os
+import sqlite3
+import pandas as pd
+from pathlib import Path
+
+# Add the project root directory to the sys.path so that Python can find data_processing
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
+
 from data_processing.transform import (
     selectColumns,
     DeleteColumns,
-    FillEmptyValues,
-    FilterRows
-    )
-from data_processing.load import LoadDfToSqlite
-import pandas as pd
+    FilterRows,
+    FillEmptyValues
+)
 
+# Update paths based on your project structure
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../'))
 
-PIPELINE_SCRIPT_PATH = os.path.abspath("./project/pipeline.py")
-OUTPUT_FILE_PATH = os.path.abspath("./data/TrafficCrashPatterns.db")
+# Correct OUTPUT_FILE_PATH, PIPELINE_SCRIPT_PATH, and DATASOURCES_JSON_PATH
+OUTPUT_FILE_PATH = os.path.abspath(os.path.join(PROJECT_ROOT, '..', 'data', 'TrafficCrashPatterns.db'))  # Resolve the absolute path
+PIPELINE_SCRIPT_PATH = os.path.join(PROJECT_ROOT, 'pipeline.py')
 DATASOURCES_JSON_PATH = os.path.join(PROJECT_ROOT, 'datasources.json')
-
 
 print("PIPELINE_SCRIPT_PATH", PIPELINE_SCRIPT_PATH)
 print("OUTPUT_FILE_PATH", OUTPUT_FILE_PATH)
@@ -28,14 +33,10 @@ def execute_pipeline():
     # Ensure the output DB file doesn't exist before running the pipeline
     if os.path.exists(OUTPUT_FILE_PATH):
         os.remove(OUTPUT_FILE_PATH)
-
+    
     # Ensure datasources.json is available
     assert os.path.exists(DATASOURCES_JSON_PATH), "datasources.json file not found"
     
-    # Ensure the 'data' directory exists
-    data_dir = os.path.dirname(OUTPUT_FILE_PATH)
-    os.makedirs(data_dir, exist_ok=True)
-
     # Run the pipeline script
     subprocess.run(["python", PIPELINE_SCRIPT_PATH], check=True)
 
