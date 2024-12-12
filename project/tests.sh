@@ -1,1 +1,1 @@
-pytest ./test_cases
+pytest ./project/test_cases
