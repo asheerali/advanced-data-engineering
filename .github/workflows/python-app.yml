@@ -30,8 +30,8 @@ jobs:
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         
-    - name: List project files
-      run: ls -R
+    # - name: List project files
+    #   run: ls -R
 
     - name: Giving the permissions
       run: chmod +x ./project/tests.sh
