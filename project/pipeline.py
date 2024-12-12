@@ -26,7 +26,7 @@ def main():
     config = ReadJson(filePath)
     
     # get DB info and delete the db if a file already exists
-    dbName = Path('../data/TrafficCrashPatterns.db')
+    dbName = Path('./data/TrafficCrashPatterns.db')
     if dbName.is_file():
         os.remove(dbName)
         print(f"{dbName} deleted.")
