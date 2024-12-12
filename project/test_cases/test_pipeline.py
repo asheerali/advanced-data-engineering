@@ -6,6 +6,7 @@ import os
 import sys
 sys.path.append(os.path.abspath('./project'))
 from data_processing.transform import (
+    selectColumns,
     DeleteColumns,
     FillEmptyValues,
     FilterRows
@@ -16,7 +17,7 @@ import pandas as pd
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../'))
 
 PIPELINE_SCRIPT_PATH = os.path.abspath("./project/pipeline.py")
-OUTPUT_FILE_PATH = os.path.abspath("./data/ChronicHealthTrends.db")
+OUTPUT_FILE_PATH = os.path.abspath("./data/TrafficCrashPatterns.db")
 DATASOURCES_JSON_PATH = os.path.join(PROJECT_ROOT, 'datasources.json')
 
 
