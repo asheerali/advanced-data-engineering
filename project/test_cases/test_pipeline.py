@@ -30,10 +30,14 @@ def execute_pipeline():
     # Ensure the output DB file doesn't exist before running the pipeline
     if os.path.exists(OUTPUT_FILE_PATH):
         os.remove(OUTPUT_FILE_PATH)
-    
+
     # Ensure datasources.json is available
     assert os.path.exists(DATASOURCES_JSON_PATH), "datasources.json file not found"
     
+    # Ensure the 'data' directory exists
+    data_dir = os.path.dirname(OUTPUT_FILE_PATH)
+    os.makedirs(data_dir, exist_ok=True)
+
     # Run the pipeline script
     subprocess.run(["python", PIPELINE_SCRIPT_PATH], check=True)
 
