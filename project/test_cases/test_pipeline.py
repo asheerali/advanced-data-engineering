@@ -1,6 +1,4 @@
 import sqlite3  # Add this import
-
-
 import subprocess
 import pytest
 import os
@@ -11,7 +9,7 @@ from data_processing.transform import (
     DeleteColumns,
     FillEmptyValues,
     FilterRows
-    )
+)
 from data_processing.load import LoadDfToSqlite
 import pandas as pd
 
@@ -20,7 +18,6 @@ PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../'))
 PIPELINE_SCRIPT_PATH = os.path.abspath("./project/pipeline.py")
 OUTPUT_FILE_PATH = os.path.abspath("./data/TrafficCrashPatterns.db")
 DATASOURCES_JSON_PATH = os.path.join(PROJECT_ROOT, 'datasources.json')
-
 
 print("PIPELINE_SCRIPT_PATH", PIPELINE_SCRIPT_PATH)
 print("OUTPUT_FILE_PATH", OUTPUT_FILE_PATH)
@@ -52,7 +49,6 @@ def get_sample_data():
     sample_df = pd.DataFrame(sample_data)
     return sample_df
 
-# Renaming this fixture to avoid the conflict
 @pytest.fixture
 def get_sample_config_to_delete():
     config = {
@@ -61,7 +57,6 @@ def get_sample_config_to_delete():
     }
     return config
 
-# Renaming this fixture to avoid the conflict
 @pytest.fixture
 def get_sample_config_to_keep():
     config = {
@@ -77,28 +72,24 @@ def test_select_columns(get_sample_data, get_sample_config_to_keep):
     assert 'B' not in transformed_df.columns, "'B' column should not be in the transformed DataFrame"
     assert transformed_df.shape == (4, 2), f"Expected shape (4, 2), but got {transformed_df.shape}"
 
-# def test_delete_columns(get_sample_data, get_sample_config_to_delete):
-#     transformed_df = DeleteColumns(get_sample_data, get_sample_config_to_delete['columnsToDelete'])
-#     assert 'B' not in transformed_df.columns, "Column B was not deleted"
-
-# def test_filter_rows(get_sample_data, get_sample_config_to_delete):
-#     transformed_df = FilterRows(get_sample_data, get_sample_config_to_delete['filteringQuery'])
-#     assert len(transformed_df) == 2, "The dataframe does not contain the expected number of rows"
-
-# def test_fill_empty_values(get_sample_data):
-#     transformed_df = FillEmptyValues(get_sample_data)
-#     assert not transformed_df.isnull().values.any(), "Not all empty values were filled"
-
 def test_pipeline_output_file(execute_pipeline):
     assert os.path.exists(OUTPUT_FILE_PATH), "Output file was not created by the pipeline."
 
 def test_pipeline_data(execute_pipeline):
     conn = sqlite3.connect(OUTPUT_FILE_PATH)
     cursor = conn.cursor()
+
+    # Check if expected tables exist
     cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
     tables = cursor.fetchall()
-    assert len(tables) > 0, "No tables found in the database"
-    cursor.execute("SELECT * FROM TrafficCrashPatterns LIMIT 5;")
-    rows = cursor.fetchall()
-    assert len(rows) > 0, "No data found in the TrafficCrashPatterns table"
+    table_names = [table[0] for table in tables]
+    expected_tables = {"TrafficCrashesPeople", "TrafficCrashesVehicles"}
+    assert expected_tables.issubset(set(table_names)), f"Expected tables {expected_tables} not found in database"
+
+    # Check data in each table
+    for table in expected_tables:
+        cursor.execute(f"SELECT * FROM {table} LIMIT 5;")
+        rows = cursor.fetchall()
+        assert len(rows) > 0, f"No data found in the {table} table"
+
     conn.close()
