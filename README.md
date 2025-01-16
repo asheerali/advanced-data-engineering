@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>Traffic Crash Patterns: Assessing the Influence of Human Factors</h1>
+  <h1>Traffic Crash Patterns: Assessing the Influence of Various Factors</h1>
   <img src="https://img.freepik.com/free-photo/demographic-census-concept-representation_23-2149093905.jpg?t=st=1730981308~exp=1730984908~hmac=1ef7fdc6cad2d45870562ebfb98e47b37ae3f5ab1352f1f20230b2b76e34ab7c&w=900" width="800" height="400" alt="Project Logo">
 </div>
 
@@ -19,11 +19,11 @@
 
 ## Project Overview
 
-This project analyzes Chicago traffic crash data to explore how driver characteristics and vehicle conditions influence crash severity. The goal is to identify patterns that can inform safety policies and interventions to reduce high-severity crashes:
+This project analyzes traffic crash data from North America to explore how driver characteristics and vehicle attributes and conditions influence crash severity. The goal is to identify patterns that can inform safety policies and interventions to reduce high-severity crashes:
 
-1. How do driver characteristics (e.g., age, sex, use of safety equipment) correlate with injury severity in crashes?
+1. How do driver characteristics correlate with injury severity in crashes?
 
-2. What are the most common vehicle types and conditions associated with high-severity crashes?
+2. What types of vehicles are most involved in crashes?
 
 ## Data Sources
 
