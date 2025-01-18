@@ -1,7 +1,10 @@
-\documentclass[a4paper,10pt]{article}
+\documentclass[a4paper,12pt]{article}
 \usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{float}
 \usepackage{amsmath}
-\usepackage{hyperref}
+% \usepackage{hyperref}
 \usepackage{geometry}
 \usepackage{natbib}
 \usepackage{project}
@@ -10,15 +13,30 @@
 \usepackage{subcaption}
 \usetikzlibrary{positioning, shapes.geometric, arrows}
 
+\usepackage[colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue]{hyperref}
+% \geometry{a4paper, margin=1in}
 \geometry{margin=1in}
+% Configure the header using fancyhdr
+\pagestyle{fancy}
+\fancyhf{} % Clear all header and footer fields
+\fancyhead[L]{06.01.2025} % Left-aligned header
+% \fancyhead[C]{MADE Data Report --- Asheer Ali (22993810)} % Center-aligned header
+\fancyhead[R]{\thepage} % Right-aligned header (page number)
+\renewcommand{\headrulewidth}{0.4pt} % Line under header
 
+% Title configuration
 \title{Traffic Crash Patterns: Assessing the Influence of Various Factors}
-\author{Asheer Ali (22993810)}
-\date{\today}
+\author{} % Remove author to suppress it
+\date{} % Empty date to suppress it
 
 \begin{document}
-	\maketitle
-	
+
+% Custom title block
+\begin{center}
+    \textbf{\Large Traffic Crash Patterns: Assessing the Influence of Human Factors} \\[1em]
+    Asheer Ali (22993810) \hspace{2cm} 16.01.2025
+\end{center}
+
 	\section{Introduction}
     Traffic crashes are a big concern that needs attention and required a comprehensive analysis in order to identify the critical issues. This report investigates to main questions. 
 		\begin{itemize}
@@ -26,23 +44,22 @@
 			\item What types of vehicles are most involved in crashes?	\end{itemize}
 	
     Knowing these patterns may make roads safer and reduce serious accidents.
-    
+
 \section{Data Sources}
 \subsection{Descriptions of Data Sources}
 \begin{itemize}
-    \item \textbf{Traffic Crashes - People:} This dataset contains details of individuals involved in traffic incidents, including demographics, safety equipment use, and injury severity 
-    .
+    \item \textbf{Traffic Crashes - People:} This dataset contains details of individuals involved in traffic incidents, including demographics, safety equipment use, and injury severity \cite{traffic_crashes_people}.
     
-    \begin{figure}
+    \begin{figure}[H]
         \centering
         \includegraphics[width=1\linewidth]{images/dataset1.png}
         \caption{First 5 rows of traffic crashes people dataset}
         \label{fig:people}
     \end{figure}
     
-    \item \textbf{Traffic Crashes - Vehicles:} Provides records of vehicles involved in crashes, including type, direction, and damage details .
+    \item \textbf{Traffic Crashes - Vehicles:} Provides records of vehicles involved in crashes, including type, direction, and damage details \cite{traffic_crashes_vehicles}.
     
-    \begin{figure}
+    \begin{figure}[H]
         \centering
         \includegraphics[width=1\linewidth]{images/dataset2.png}
         \caption{First 5 rows of traffic crashes vehicle dataset}
@@ -52,7 +69,7 @@
 
 \subsection{Structure and Quality of Data Sources}
 \begin{itemize}
-    \item \textbf{People Dataset:} Contains individual-level data with fields for demographics, safety equipment use, and injury severity. Missing values exist but can be handled through removing the rows with Nan values, as the nan values are not present that much in the selected columns.
+    \item \textbf{People Dataset:} Contains individual-level data with fields for demographics, safety equipment use, and injury severity. Missing values exist but can be handled through removing the rows with Nan values, as the nan values are not present that much in the selected columns. \cite{github_repo}.
     \item \textbf{Vehicle Dataset:} Vehicle-level data with fields for type, damage, and direction. Data quality is high, with minimal missing values.
 \end{itemize}
 
@@ -91,6 +108,7 @@ The data pipeline is implemented using Python and consists of the following step
     \item Missing data for certain fields may impact analysis accuracy.
 
 \end{itemize}
+
 
 \newpage
 \section{Questions}
@@ -156,6 +174,12 @@ Safety programs can focus on younger and male drivers to lower severe crashes. I
 
 
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{images/vehicle-crashes-per-year.png}
+    \caption{Distribution of Vehicle Crashes per Year (Excluding Parked Vehicles)}
+    \label{fig:3.4}
+\end{figure}
 \subsection{What types of vehicles are most involved in crashes?}
 
 \subsubsection{Findings:}
@@ -174,15 +198,6 @@ These vehicles had the most accidents in one year.
 This is the car with the highest number of crashes ever.
 
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.75\linewidth]{images/vehicle-crashes-per-year.png}
-    \caption{Distribution of Vehicle Crashes per Year (Excluding Parked Vehicles)}
-    \label{fig:3.4}
-\end{figure}
-
-\subsubsection{Observations:}
-Cars from big brands like Nissan, Chrysler, and Honda are in more crashes. This may be because they are very popular. In 2015, some models had their highest crash numbers.
 
 \begin{figure}
     \centering
@@ -190,6 +205,10 @@ Cars from big brands like Nissan, Chrysler, and Honda are in more crashes. This 
     \caption{Top 10 Vehicle Industries and Their Top 5 Models Involved in Crashes (Excluding Parked Vehicles)}
     \label{fig:3.5}
 \end{figure}
+\subsubsection{Observations:}
+Cars from big brands like Nissan, Chrysler, and Honda are in more crashes. This may be because they are very popular. In 2015, some models had their highest crash numbers.
+
+
 
 \section{Conclusion}
 
@@ -217,7 +236,8 @@ The data reveals key insights into traffic crash patterns and their relationship
 
 Popular vehicle models such as the Honda Civic, Nissan Rogue, and Chrysler 200 frequently appear in crash records. While the high crash numbers for these models may be linked to their popularity, further investigation into vehicle safety features and usage conditions is essential.
 
-\section*{Limitations}
+\vspace{12pt}
+\textbf{Limitations}
 \begin{itemize}
     \item The analysis assumes linear relationships, which might not capture complex interactions.
     \item Missing data and limited variables like road conditions and vehicle maintenance were not deeply explored.
@@ -227,9 +247,10 @@ Popular vehicle models such as the Honda Civic, Nissan Rogue, and Chrysler 200 f
 Overall, the findings suggest targeting safety programs for male drivers and younger drivers to mitigate severe crashes and exploring additional factors such as road and vehicle conditions for a comprehensive safety strategy.
 
 
-% \section{References}
-% \bibliographystyle{plain}
 
 
-% \bibliography{reference}
+
+\section{References}
+\bibliographystyle{plain}
+\bibliography{reference}
 \end{document}

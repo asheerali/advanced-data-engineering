@@ -7,6 +7,7 @@ from data_processing.transform import (
 from data_processing.load import LoadDfToSqlite
 import os
 import json
+
 def validate_datasources_json(path):
     try:
         with open(path, 'r') as f:

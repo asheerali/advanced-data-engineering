@@ -157,10 +157,12 @@ cython_debug/
 run/
 old_notebooks/
 raw_data
+raw_data/*
 __pycache__
 
 
 .DS_Store
+# project/data/*
 /data/*
 !/data/.gitkeep
 .venv_ade
